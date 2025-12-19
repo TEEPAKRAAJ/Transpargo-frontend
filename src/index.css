@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-deepBlue: #3D52A0;
+  --color-lightBlue: #7091E6;
+  --color-lavenderBlue: #8697C4;
+  --color-cloudyBlue: #ADBBDA;
+  --color-mistWhite: #EDE8F5;
+}
+.input {
+  @apply w-full p-3 rounded-lg border border-[#3D52A0] bg-[#EDE8F5] 
+         text-black placeholder-black focus:outline-none focus:ring-2 focus:ring-[#7091E6];
+}

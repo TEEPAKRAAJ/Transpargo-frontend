@@ -1,0 +1,438 @@
+:root {
+  --primary: #3d52a0;
+  --secondary: #7091e6;
+  --accent: #8697c4;
+  --soft: #adbbd4;
+  --bg-light: #ede8f5;
+  --white: #ffffff;
+
+
+
+
+  --content-max-width: 1280px;
+}
+
+
+@media (max-width: 900px) {
+.dg-3d-section {
+  grid-template-columns: 1fr;
+}
+
+
+.dg-3d-section > div:last-child {
+  justify-content: center;
+}
+}
+
+
+
+
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #ede8f5 20%,
+    #adbbd4 45%,
+    #8697c4 70%,
+    #7091e6 100%
+  );
+  color: #1b1b1b;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+
+
+
+/* ===== PAGE LAYOUT ===== */
+
+
+
+
+.dg-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+
+
+
+.dg-page-inner {
+  width: 100%;
+  max-width: var(--content-max-width);
+  padding: 0 28px;
+  box-sizing: border-box;
+}
+
+
+
+
+/* ===== HEADINGS ===== */
+
+
+
+
+.dg-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+
+
+
+
+.dg-header p {
+  margin: 0;
+  font-size: 18px;
+  color: #424242;
+}
+
+
+
+
+/* ===== CARDS ===== */
+
+
+
+
+.dg-card {
+  background: var(--white);
+  padding: 28px;
+  border-radius: 16px;
+  border: 1.5px solid var(--soft);
+  box-shadow: 0 12px 25px rgba(61, 82, 160, 0.12);
+ 
+  margin-bottom: 32px;
+}
+
+
+
+
+.dg-card h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 18px;
+}
+
+
+
+
+/* ===== FORM & FIELDS ===== */
+
+
+
+
+.dg-field {
+  margin-bottom: 20px;
+}
+
+
+
+
+.dg-field label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+
+
+
+.dg-field input,
+.dg-field select {
+  width: 100%;
+  font-size: 18px;
+  padding: 16px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--soft);
+  background: #ffffff;
+  box-sizing: border-box;
+  transition: 0.2s ease;
+}
+
+
+
+
+.dg-field input:focus,
+.dg-field select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 6px rgba(112, 145, 230, 0.4);
+  outline: none;
+}
+
+
+
+
+/* Checkbox */
+
+
+
+
+.dg-checkbox-row label {
+  font-size: 16px;
+}
+
+
+
+
+/* ===== TAGS ===== */
+
+
+
+
+.dg-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+
+
+
+.dg-tag {
+  background: var(--soft);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #1b1b1b;
+}
+
+
+
+
+/* ===== 3D VIEWER ===== */
+
+
+
+
+.dg-3d-wrapper {
+  width: 100%;
+  height: 450px;
+  border-radius: 16px;
+  border: 2px solid var(--primary);
+  overflow: hidden;
+  background: #0f172a;
+  margin-top: 18px;
+}
+
+
+
+
+/* ===== BUTTON ===== */
+
+
+
+
+.dg-button-primary {
+  background: var(--primary);
+  color: white;
+  padding: 16px 16px;
+  border-radius: 12px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+
+
+
+.dg-button-primary:hover {
+  background: var(--secondary);
+}
+
+
+
+
+/* ===== SMALL ELEMENTS ===== */
+
+
+
+
+.dg-help {
+  font-size: 15px;
+  color: #555;
+  margin-top: 5px;
+}
+
+
+
+
+.dg-summary-line {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+
+
+
+/* layout */
+
+
+
+
+.dg-layout-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  width: 100%;
+  align-items: start;
+  margin-bottom: 48px;
+}
+
+
+
+
+
+
+
+
+@media (max-width: 1100px) {
+  .dg-layout-two-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+.dg-card input,
+.dg-card select {
+  height: 52px;
+  font-size: 18px;
+  padding: 12px 14px;
+}
+
+
+
+
+.dg-card label {
+  font-size: 18px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+
+
+
+.dg-card h2 {
+  margin-bottom: 18px;
+}
+
+.dg-card.equal-height {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+.dg-3d-wrapper {
+width: 100%;
+height: 650px;              /* ⬅ increase from 550px */
+border-radius: 16px;
+background: #ffffff;        /* white looks cleaner */
+border: 2px solid var(--primary);
+overflow: hidden;
+position: relative;
+}
+
+
+
+
+
+.dg-3d-wrapper canvas {
+position: absolute !important;
+inset: 0;
+width: 100% !important;
+height: 100% !important;
+}
+
+
+
+
+
+
+.dg-form-section {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+
+#added
+
+.dg-3d-section > div {
+display: grid;
+grid-template-columns: 75% 25%;
+align-items: center;
+column-gap: 32px;
+}
+
+
+.dg-3d-wrapper {
+grid-column: 1 / 2;
+justify-self: center;
+align-self: center;
+}
+
+
+.dg-layer-legend {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 12px;
+
+
+width: 100%;
+max-width: 220px;   /* ⬅ smaller legend block */
+margin: 0 auto;     /* ⬅ centers inside 25% column */
+}
+
+
+.dg-layer-legend > * {
+width: 100%;
+padding: 12px 14px !important; /* overrides inline padding */
+font-size: 15px !important;    /* smaller text */
+border-radius: 10px;
+text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.dg-bottom-row {
+ 
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
