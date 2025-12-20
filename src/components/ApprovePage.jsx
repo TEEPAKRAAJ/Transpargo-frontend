@@ -8,6 +8,7 @@ export default function ApprovePage() {
   const [shipment, setShipment] = useState(null);
   const [showHsPopup, setShowHsPopup] = useState(false);
   const [newHs, setNewHs] = useState("");
+  const [newHsSender, setNewHsSender] = useState("");
 
   // ---------------- FETCH SHIPMENT DETAILS ----------------
   useEffect(() => {
@@ -24,13 +25,15 @@ export default function ApprovePage() {
       );
   
       setShipment(found);
+      setNewHs(found.hs || "Not Found");
+      setNewHsSender(found.senderHs || "Not Found");
     };
   
     load();
   }, [shipmentId]);
 
   if (!shipment) return <div className="p-10 text-xl">Loading...</div>;
-
+  console.log(shipment);
 
   // ---------------- APPROVE HS CODE ----------------
   const approveHsCode = async () => {
@@ -63,7 +66,10 @@ export default function ApprovePage() {
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newHs),
+          body: JSON.stringify({
+            hs: newHs, 
+            senderHs: newHsSender,
+          }),
         }
       );
       notifyUser();
@@ -114,6 +120,13 @@ export default function ApprovePage() {
               onChange={(e) => setNewHs(e.target.value)}
             />
 
+            <input
+              className="w-full border rounded-xl p-3 mb-4"
+              placeholder="New Sender HS Code"
+              value={newHsSender}
+              onChange={(e) => setNewHsSender(e.target.value)}
+            />
+
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowHsPopup(false)}
@@ -155,21 +168,38 @@ export default function ApprovePage() {
 
         {/* SHIPPING DETAILS */}
         <div className="grid grid-cols-2 gap-6 bg-[#EDE8F5] p-6 rounded-2xl border border-[#ADBBD4] mb-8">
+
+          {/* LEFT SIDE – SENDER */}
           <div>
             <p className="font-bold text-xl text-[#3D52A0]">Origin</p>
             <p className="text-lg">{shipment.origin}</p>
 
-            <p className="font-bold text-xl text-[#3D52A0] mt-4">Declared Value</p>
+            <p className="font-bold text-xl text-[#3D52A0] mt-4">
+              Sender HS Code
+            </p>
+            <p className="text-lg">
+              {shipment.senderHs || "Not provided"}
+            </p>
+
+            <p className="font-bold text-xl text-[#3D52A0] mt-4">
+              Declared Value
+            </p>
             <p>{shipment.declaredValue}</p>
           </div>
 
+          {/* RIGHT SIDE – RECEIVER */}
           <div>
             <p className="font-bold text-xl text-[#3D52A0]">Destination</p>
             <p className="text-lg">{shipment.destination}</p>
 
-            <p className="font-bold text-xl text-[#3D52A0] mt-4">HS Code</p>
-            <p>{shipment.hs}</p>
+            <p className="font-bold text-xl text-[#3D52A0] mt-4">
+              Receiver HS Code
+            </p>
+            <p className="text-lg">
+              {shipment.hs || "Not provided"}
+            </p>
           </div>
+
         </div>
 
         {/* PRODUCT DETAILS */}

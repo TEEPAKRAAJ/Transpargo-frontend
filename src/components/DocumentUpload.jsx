@@ -31,7 +31,7 @@ export default function DocumentUpload() {
     }
     loadDetails();
   }, [shipmentId]);
-
+console.log(shipmentDetails);
   // ----------- Fetch Required Docs From AI Backend -----------
   useEffect(() => {
     async function fetchAIRequiredDocs() {

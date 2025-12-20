@@ -184,23 +184,40 @@ export default function DonePage() {
           Shipment: {shipment.id}
         </h2>
 
-        {/* SHIPMENT DETAILS */}
-        <div className="grid grid-cols-2 gap-6 bg-[#EDE8F5] p-6 rounded-2xl border mb-8">
-          <div>
-            <p className="font-bold text-xl">Origin</p>
-            <p>{shipment.origin}</p>
+        {/* SHIPPING DETAILS */}
+        <div className="grid grid-cols-2 gap-6 bg-[#EDE8F5] p-6 rounded-2xl border border-[#ADBBD4] mb-8">
 
-            <p className="font-bold text-xl mt-4">Declared Value</p>
+          {/* LEFT SIDE – SENDER */}
+          <div>
+            <p className="font-bold text-xl text-[#3D52A0]">Origin</p>
+            <p className="text-lg">{shipment.origin}</p>
+
+            <p className="font-bold text-xl text-[#3D52A0] mt-4">
+              Sender HS Code
+            </p>
+            <p className="text-lg">
+              {shipment.senderHs || "Not provided"}
+            </p>
+
+            <p className="font-bold text-xl text-[#3D52A0] mt-4">
+              Declared Value
+            </p>
             <p>{shipment.declaredValue}</p>
           </div>
 
+          {/* RIGHT SIDE – RECEIVER */}
           <div>
-            <p className="font-bold text-xl">Destination</p>
-            <p>{shipment.destination}</p>
+            <p className="font-bold text-xl text-[#3D52A0]">Destination</p>
+            <p className="text-lg">{shipment.destination}</p>
 
-            <p className="font-bold text-xl mt-4">HS Code</p>
-            <p>{shipment.hs}</p>
+            <p className="font-bold text-xl text-[#3D52A0] mt-4">
+              Receiver HS Code
+            </p>
+            <p className="text-lg">
+              {shipment.hs || "Not provided"}
+            </p>
           </div>
+
         </div>
 
         {/* PRODUCT DETAILS */}
