@@ -154,7 +154,7 @@ export default function ShippingCostPayment() {
       try {
         const numeric = parseInt(shipmentId);
         await fetch(
-          `http://localhost:5000/api/shipments/${numeric}/status-abort`,
+          `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/status-abort`,
           { method: "PUT" }
         );
       } catch (err) {

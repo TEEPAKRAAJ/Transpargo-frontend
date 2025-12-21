@@ -18,7 +18,7 @@ export default function ShippingTimeline() {
         const id = shipmentId.replace("SHP", "");
 
         // Load full shipment list to retrieve status + metadata
-        const all = await fetch("http://localhost:5000/api/shipments");
+        const all = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
         const allData = await all.json();
 
         const found = allData.find(
@@ -62,7 +62,7 @@ export default function ShippingTimeline() {
           console.log("Realtime timeline update received");
 
           // Reload shipment info
-          const all = await fetch("http://localhost:5000/api/shipments");
+          const all = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
           const allData = await all.json();
 
           const updated = allData.find(

@@ -18,7 +18,7 @@ export default function CheckPage() {
   // ---------------- LOAD SHIPMENT ----------------
   useEffect(() => {
     const load = async () => {
-      const res = await fetch("http://localhost:5000/api/shipments");
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
       const data = await res.json();
 
       const numeric = parseInt(shipmentId);
@@ -58,7 +58,7 @@ useEffect(() => {
         console.log("Realtime Shipment Update:", payload);
 
         // Reload shipment details
-        const res = await fetch("http://localhost:5000/api/shipments");
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
         const data = await res.json();
 
         const updated = data.find(
@@ -110,7 +110,7 @@ useEffect(() => {
   // ---------------- LOAD DOCS ----------------
   const loadSubmittedDocuments = async (id) => {
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${id}/docapproval`
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${id}/docapproval`
     );
 
     if (res.ok) {
@@ -126,7 +126,7 @@ useEffect(() => {
     const numeric = parseInt(shipmentId);
 
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${numeric}/${encoded}`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/${encoded}`,
       { method: "DELETE" }
     );
 
@@ -141,7 +141,7 @@ useEffect(() => {
     const numeric = parseInt(shipmentId);
   
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${numeric}/updatedoclog`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/updatedoclog`,
       { method: "PUT" }
     );
   
@@ -167,7 +167,7 @@ useEffect(() => {
     const numeric = parseInt(shipmentId);
 
     // Save issue
-    await fetch(`http://localhost:5000/api/shipments/${numeric}/reason`, {
+    await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/reason`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(issueText),
@@ -179,7 +179,7 @@ useEffect(() => {
       shipmentId: "SHP" + shipmentId,
     };
 
-    const res = await fetch("http://localhost:5000/api/email/send", {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/send`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

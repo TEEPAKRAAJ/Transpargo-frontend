@@ -39,7 +39,7 @@ console.log(shipmentDetails);
 
       try {
         const res = await fetch(
-          `http://localhost:5000/user/${shipmentId}/documents/required-docs/${shipmentDetails.hs_code}`
+          `${import.meta.env.VITE_API_BASE_URL}/user/${shipmentId}/documents/required-docs/${shipmentDetails.rec_hs_code}`
         );
 
         const data = await res.json();
@@ -55,7 +55,7 @@ console.log(shipmentDetails);
     fetchAIRequiredDocs();
   }, [shipmentDetails]);
 
-
+console.log(shipmentDetails);
   // ----------- Load Already Uploaded Docs -----------
   useEffect(() => {
     async function loadUploadedDocs() {
@@ -195,7 +195,8 @@ function ShipmentDetailsCard({ shipment }) {
         <DetailItem label="Product Category" value={shipment.product_category} />
         <DetailItem label="Declared Value" value={`₹${shipment.declared_value}`} />
         <DetailItem label="Weight" value={`${shipment.weight} kg`} />
-        <DetailItem label="HS Code" value={shipment.hs_code} />
+        <DetailItem label="Sender HS Code" value={shipment.hs_code} />
+        <DetailItem label="Receiver HS Code" value={shipment.rec_hs_code} />
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ export default function DonePage() {
   const loadPaymentStatus = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/shipments/${id}/duty-payment-status`
+        `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${id}/duty-payment-status`
       );
       if (!res.ok) return;
   
@@ -35,7 +35,7 @@ export default function DonePage() {
       message: message
     };
   
-    const res1 = await fetch("http://localhost:5000/api/email/notify", {
+    const res1 = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/notify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload1),
@@ -47,7 +47,7 @@ export default function DonePage() {
       message: message
     };
   
-    const res2 = await fetch("http://localhost:5000/api/email/notify", {
+    const res2 = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/notify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload2),
@@ -64,7 +64,7 @@ export default function DonePage() {
   // ---------------- LOAD SHIPMENT DATA ----------------
   useEffect(() => {
     const loadData = async () => {
-      const all = await fetch("http://localhost:5000/api/shipments");
+      const all = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
       const json = await all.json();
 
       const numeric = parseInt(shipmentId);
@@ -96,7 +96,7 @@ export default function DonePage() {
         async () => {
           console.log("Realtime Shipment Update");
 
-          const all = await fetch("http://localhost:5000/api/shipments");
+          const all = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
           const json = await all.json();
 
           const updated = json.find(
@@ -125,7 +125,7 @@ export default function DonePage() {
       shipmentId: "SHP" + shipmentId,
     };
 
-    const res = await fetch("http://localhost:5000/api/email/send", {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/send`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -144,7 +144,7 @@ export default function DonePage() {
     const numeric = parseInt(shipmentId);
 
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${numeric}/status-delivered`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/status-delivered`,
       { method: "PUT" }
     );
 

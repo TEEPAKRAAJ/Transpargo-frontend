@@ -49,6 +49,7 @@ export default function CreateShipmentForm() {
     },
     dutyMode: "",
     hsCode: "Auto-detecting...",
+    destinationHsCode: "",
   });
 
 
@@ -220,27 +221,42 @@ const showStep5Errors = () => {
 
   /* ================= HS CODE ================= */
   const handleFetchHsCode = async () => {
-    try {
-      setLoadingHs(true);
-      const payload = {
-        Description: form.product.description,
-        Country: form.receiver.country,
-        Category: form.product.category,
-        Material: form.product.composition,
-        HsCode: "0"
-      };
-      const res = await axios.post(
-        "http://localhost:5000/hs-code/fetch",
-        payload,
-        { headers: { "Content-Type": "application/json" } }
-      );
-      setForm(p => ({ ...p, hsCode: res.data.hsCode }));
-    } catch {
-      alert("Failed to fetch HS Code");
-    } finally {
-      setLoadingHs(false);
-    }
-  };
+  try {
+    setLoadingHs(true);
+
+
+    const payload = {
+      DestinationCountry: form.receiver.country,
+      Category: form.product.category,
+      Material: form.product.composition,
+      ProductDescription: form.product.description
+    };
+
+
+    const res = await axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/hs-code/fetch`,
+      payload,
+      { headers: { "Content-Type": "application/json" } }
+    );
+
+
+    const hsData = res.data;
+
+
+    setForm(p => ({
+      ...p,
+      hsCode: hsData.indian_hs_code,           // Indian HS Code
+      destinationHsCode: hsData.destination_hs_code  // Destination HS Code
+    }));
+
+
+  } catch (error) {
+    console.error(error);
+    alert("Failed to fetch HS Code");
+  } finally {
+    setLoadingHs(false);
+  }
+};
 
 
   /* ================= SUBMIT ================= */
@@ -259,10 +275,64 @@ const showStep5Errors = () => {
 
   try {
     setLoading(true);
-    await createShipment(form);
+    console.log("Submitting shipment:", form);
+    const userId = localStorage.getItem("ID");
+    const payload = {
+    status: "Created",
+    duty_mode: form.dutyMode,
+    shipping_cost: 0,
+    user_id:Number(userId ),
+    reason: "",
+
+
+    sender_name: form.sender.name,
+    sender_email: form.sender.email,
+    sender_phone: form.sender.phone,
+    sender_address1: form.sender.address1,
+    sender_city: form.sender.city,
+    sender_state: form.sender.state,
+    sender_postal: form.sender.postal,
+    sender_country: form.sender.country,
+
+
+    receiver_name: form.receiver.name,
+    receiver_email: form.receiver.email,
+    receiver_phone: form.receiver.phone,
+    receiver_address1: form.receiver.address1,
+    receiver_city: form.receiver.city,
+    receiver_state: form.receiver.state,
+    receiver_postal: form.receiver.postal,
+    receiver_country: form.receiver.country,
+
+
+    shipment_type: form.shipment.type,
+    packages: Number(form.shipment.packages),
+    weight: Number(form.shipment.weight),
+
+
+    dimensions_length: Number(form.dimensions.length),
+    dimensions_width: Number(form.dimensions.width),
+    dimensions_height: Number(form.dimensions.height),
+
+
+    special_notes: form.shipment.special_notes,
+    quantity: Number(form.shipment.quantity),
+
+
+    product_category: form.product.category,
+    product_value: Number(form.product.value),
+    product_description: form.product.description,
+    product_composition: form.product.composition,
+    intended_use: form.product.intended_use,
+
+
+    hs_code: form.hsCode,                 // Indian HS
+    destinationHsCode: form.destinationHsCode // Destination HS
+  };
+    await createShipment(payload);
     alert("Shipment Created Successfully!");
   } catch {
-    alert("Failed to create shipment");
+    alert("Failed to create shipments");
   } finally {
     setLoading(false);
   }
@@ -274,7 +344,7 @@ const showStep5Errors = () => {
 
 
   /* ================= AI RISK ================= */
-  const API_AI = "http://localhost:5000/api/airisk/analyze";
+  const API_AI = `${import.meta.env.VITE_API_BASE_URL}/api/airisk/analyze`;
   const [aiLoading, setAiLoading] = useState(false);
   const [aiRisk, setAiRisk] = useState(null);
 
@@ -756,14 +826,14 @@ const showStep5Errors = () => {
                   }
                 >
                   <option value="">Select Product Category</option>
-                  <option value="ApparelTextiles">Apparel & Textiles</option>
-                  <option value="CosmeticsAyurveda">
-                    Cosmetics & Ayurveda
+                  <option value="CLOTHING">Apparel & Textiles</option>
+                  <option value="Cosmetics">
+                    Cosmetics
                   </option>
-                  <option value="ElectronicsAccessories">
+                  <option value="Electronics">
                     Electronics Accessories
                   </option>
-                  <option value="HomeDecorHandicrafts">
+                  <option value="Home Decor">
                     Home Decor & Handicrafts
                   </option>
                   <option value="FashionAccessories">
@@ -772,6 +842,11 @@ const showStep5Errors = () => {
                   <option value="DangerousGoods">
                   Dangerous Goods
                   </option>
+                  <option value="Footwear">
+                  Footwear
+                  </option>
+
+
                   <option value="Food">Food</option>
                   <option value="Spices">Spices</option>
                 </select>

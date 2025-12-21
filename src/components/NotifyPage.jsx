@@ -24,7 +24,7 @@ export default function NotifyPage() {
   const loadShippingCostPreview = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/shipments/${id}/shipping-cost-preview`
+        `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${id}/shipping-cost-preview`
       );
       if (!res.ok) return;
 
@@ -52,7 +52,7 @@ export default function NotifyPage() {
   const loadPaymentStatus = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/shipments/${id}/payment-status`
+        `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${id}/payment-status`
       );
       if (!res.ok) return;
   
@@ -70,7 +70,7 @@ export default function NotifyPage() {
       message: message
     };
   
-    const res1 = await fetch("http://localhost:5000/api/email/notify", {
+    const res1 = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/notify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload1),
@@ -82,7 +82,7 @@ export default function NotifyPage() {
       message: message
     };
   
-    const res2 = await fetch("http://localhost:5000/api/email/notify", {
+    const res2 = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/notify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload2),
@@ -99,7 +99,7 @@ export default function NotifyPage() {
   // ---------------- LOAD SHIPMENT ----------------
   useEffect(() => {
     const loadData = async () => {
-      const all = await fetch("http://localhost:5000/api/shipments");
+      const all = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
       const allData = await all.json();
   
       const numeric = parseInt(shipmentId);
@@ -144,7 +144,7 @@ export default function NotifyPage() {
         async () => {
           console.log("Realtime Shipment Update");
   
-          const all = await fetch("http://localhost:5000/api/shipments");
+          const all = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
           const allData = await all.json();
   
           const updated = allData.find(
@@ -200,7 +200,7 @@ useEffect(() => {
   // ---------------- LOAD DOCUMENTS ----------------
   const loadDocuments = async (id) => {
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${id}/docapproval`
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${id}/docapproval`
     );
     if (res.ok) setDocuments(await res.json());
   };
@@ -236,7 +236,7 @@ useEffect(() => {
     const numeric = parseInt(shipmentId);
 
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${numeric}/${encoded}`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/${encoded}`,
       { method: "DELETE" }
     );
 
@@ -293,7 +293,7 @@ useEffect(() => {
       shipmentId: "SHP" + shipmentId,
     };
 
-    const res = await fetch("http://localhost:5000/api/email/send", {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/send`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -313,7 +313,7 @@ useEffect(() => {
     const numeric = parseInt(shipmentId);
 
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${numeric}/status-addition-doc`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/status-addition-doc`,
       { method: "PUT", headers: { "Content-Type": "application/json" } }
     );
 
@@ -334,7 +334,7 @@ useEffect(() => {
     const numeric = parseInt(shipmentId);
 
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${numeric}/status-export`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/status-export`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -379,7 +379,7 @@ useEffect(() => {
     const numeric = parseInt(shipmentId);
   
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${numeric}/status-reached-customs`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/status-reached-customs`,
       { method: "PUT" }
     );
   
@@ -395,7 +395,7 @@ useEffect(() => {
     const numeric = parseInt(shipmentId);
   
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${numeric}/status-approve-import`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/status-approve-import`,
       { method: "PUT" }
     );
   
@@ -411,7 +411,7 @@ useEffect(() => {
       const numeric = parseInt(shipmentId);
     
       // 1️⃣ SAVE REASON
-      await fetch(`http://localhost:5000/api/shipments/${numeric}/reason`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/reason`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(reasonText)
@@ -419,7 +419,7 @@ useEffect(() => {
     
       // 2️⃣ UPDATE STATUS → Additional Document Required
       const res = await fetch(
-        `http://localhost:5000/api/shipments/${numeric}/status-addition-doc`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/status-addition-doc`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" }
@@ -784,7 +784,7 @@ useEffect(() => {
             }));
 
             await fetch(
-              `http://localhost:5000/api/shipments/${numeric}/set-docs`,
+              `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/set-docs`,
               {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -797,7 +797,7 @@ useEffect(() => {
               ? shipment.senderEmail
               : shipment.receiverEmail;
       
-              await fetch("http://localhost:5000/api/email/notify", {
+              await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/notify`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

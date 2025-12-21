@@ -13,7 +13,7 @@ export default function ApprovePage() {
   // ---------------- FETCH SHIPMENT DETAILS ----------------
   useEffect(() => {
     const load = async () => {
-      const res = await fetch("http://localhost:5000/api/shipments");
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
       const data = await res.json();
   
       // Convert shipmentId to number
@@ -41,7 +41,7 @@ export default function ApprovePage() {
 
     try {
       await fetch(
-        `http://localhost:5000/api/shipments/${shipmentId}/hs-approve`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${shipmentId}/hs-approve`,
         { method: "PUT", headers: { "Content-Type": "application/json" } }
       );
       notifyUser();
@@ -62,7 +62,7 @@ export default function ApprovePage() {
 
     try {
       await fetch(
-        `http://localhost:5000/api/shipments/${shipmentId}/change-hscode`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${shipmentId}/change-hscode`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -86,7 +86,7 @@ export default function ApprovePage() {
       message: "Your HS Code has been approved by the shipment agent. Please Upload documents."
     };
   
-    const res = await fetch("http://localhost:5000/api/email/notify", {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/notify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

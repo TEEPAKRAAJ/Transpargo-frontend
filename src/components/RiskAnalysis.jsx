@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API_AI = "http://localhost:5000/api/airisk/analyze";
+const API_AI = `${import.meta.env.VITE_API_BASE_URL}/api/airisk/analyze`;
 
 export default function RiskAnalysis() {
   const [manualInput, setManualInput] = useState({ product: "", destination: "", hsCode: "" });

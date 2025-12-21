@@ -21,7 +21,7 @@ export default function DestructionPage() {
       message: message
     };
   
-    const res = await fetch("http://localhost:5000/api/email/notify", {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/notify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -38,7 +38,7 @@ export default function DestructionPage() {
   // ---------------- LOAD SHIPMENT ----------------
   useEffect(() => {
     async function loadData() {
-      const all = await fetch("http://localhost:5000/api/shipments");
+      const all = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
       const json = await all.json();
 
       const numeric = parseInt(shipmentId);
@@ -67,7 +67,7 @@ export default function DestructionPage() {
           filter: `s_id=eq.${numeric}`,
         },
         async () => {
-          const all = await fetch("http://localhost:5000/api/shipments");
+          const all = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
           const json = await all.json();
 
           const updated = json.find(
@@ -93,7 +93,7 @@ console.log(shipment)
     const payload = { name: "Destruction", ...formData };
 
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${numeric}/initiate-payment`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/initiate-payment`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -118,7 +118,7 @@ console.log(shipment)
     const numeric = parseInt(shipmentId);
 
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${numeric}/status-destroyed`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/status-destroyed`,
       { method: "PUT" }
     );
 

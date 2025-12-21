@@ -21,7 +21,7 @@ export default function ReturnsPage() {
       message: message
     };
   
-    const res = await fetch("http://localhost:5000/api/email/notify", {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/notify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -39,7 +39,7 @@ export default function ReturnsPage() {
   // ---------------- LOAD SHIPMENT ----------------
   useEffect(() => {
     async function loadData() {
-      const all = await fetch("http://localhost:5000/api/shipments");
+      const all = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
       const json = await all.json();
 
       const numeric = parseInt(shipmentId);
@@ -76,7 +76,7 @@ export default function ReturnsPage() {
           filter: `s_id=eq.${numeric}`,
         },
         async () => {
-          const all = await fetch("http://localhost:5000/api/shipments");
+          const all = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/shipments`);
           const json = await all.json();
 
           const updated = json.find(
@@ -102,7 +102,7 @@ export default function ReturnsPage() {
     const payload = { name: "Return", ...formData };
 
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${numeric}/initiate-payment`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/initiate-payment`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -127,7 +127,7 @@ export default function ReturnsPage() {
     const numeric = parseInt(shipmentId);
 
     const res = await fetch(
-      `http://localhost:5000/api/shipments/${numeric}/status-returned`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/shipments/${numeric}/status-returned`,
       { method: "PUT" }
     );
 
