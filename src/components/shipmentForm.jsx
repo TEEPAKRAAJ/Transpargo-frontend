@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { createShipment } from "../api/shipmentApi";
 
@@ -15,6 +16,7 @@ const REGEX = {
 
 export default function CreateShipmentForm() {
   const savedEmail = localStorage.getItem("email") || "";
+  const navigate = useNavigate();
 
 
   const COUNTRIES = [
@@ -335,6 +337,7 @@ const showStep5Errors = () => {
     alert("Failed to create shipments");
   } finally {
     setLoading(false);
+    navigate(`/user`);
   }
 };
 
