@@ -587,6 +587,7 @@ useEffect(() => {
         {(status === "Document Approved" ||
           status === "Payment Successful" ||
           status === "Arrived at Customs" ||
+          status === "Import Clearance" ||
           status === "Additional Document Required") && (
           <div className="p-6 bg-white border rounded-2xl shadow mb-8">
             <h3 className="text-2xl font-semibold text-[#3D52A0] mb-4">

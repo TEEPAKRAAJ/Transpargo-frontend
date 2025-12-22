@@ -280,7 +280,7 @@ const showStep5Errors = () => {
     console.log("Submitting shipment:", form);
     const userId = localStorage.getItem("ID");
     const payload = {
-    status: "Created",
+    status: "Shipment created",
     duty_mode: form.dutyMode,
     shipping_cost: 0,
     user_id:Number(userId ),
