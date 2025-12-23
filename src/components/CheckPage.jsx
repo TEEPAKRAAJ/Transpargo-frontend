@@ -119,6 +119,26 @@ useEffect(() => {
     }
   };
 
+  const notifyUser = async () => {
+    const payload = {
+      to: shipment.senderEmail,
+      shipmentId: shipment.id,
+      message: "Your documents have been approved by the shipment agent. Please pay the shipment cost to proceed."
+    };
+  
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/notify`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  
+    if (res.ok) {
+      alert("Document Approve Notification email sent!");
+    } else {
+      alert("Failed to send notification email");
+    }
+  };
+
   const previewDocument = (url) => window.open(url, "_blank");
 
   const deleteDocument = async (title) => {
@@ -150,6 +170,7 @@ useEffect(() => {
   
       // Update UI
       setShipment((prev) => ({ ...prev, status: "Document Approved" }));
+      notifyUser();
   
       // ⭐ Navigate to Notify page
       navigate(`/Shipping_agency/shipment/${shipmentId}/notify`);

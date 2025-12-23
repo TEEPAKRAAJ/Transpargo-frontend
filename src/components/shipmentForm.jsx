@@ -4,6 +4,8 @@ import axios from "axios";
 import { createShipment } from "../api/shipmentApi";
 
 
+
+
 /* ================= GLOBAL VALIDATION ================= */
 const REGEX = {
   english: /^[A-Za-z .'-]{2,50}$/,
@@ -14,9 +16,13 @@ const REGEX = {
 };
 
 
+
+
 export default function CreateShipmentForm() {
   const savedEmail = localStorage.getItem("email") || "";
   const navigate = useNavigate();
+
+
 
 
   const COUNTRIES = [
@@ -24,6 +30,8 @@ export default function CreateShipmentForm() {
     "Indonesia","Malaysia","Netherlands",
     "Singapore","South Korea",
   ];
+
+
 
 
   /* ================= FORM STATE ================= */
@@ -55,14 +63,20 @@ export default function CreateShipmentForm() {
   });
 
 
+
+
   const totalSteps = 6;
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [loadingHs, setLoadingHs] = useState(false);
 
 
+
+
   /* ================= ERROR STATE ================= */
   const [errors, setErrors] = useState({});
+
+
 
 
   /* ================= VALIDATION ENGINE ================= */
@@ -70,20 +84,30 @@ export default function CreateShipmentForm() {
     let msg = "";
 
 
+
+
     if (["name","city","state"].includes(field) && !REGEX.english.test(value))
       msg = "Only English letters allowed";
+
+
 
 
     if (field === "email" && !REGEX.email.test(value))
       msg = "Invalid email";
 
 
+
+
     if (field === "phone" && !REGEX.phone.test(value))
       msg = "Invalid phone number";
 
 
+
+
     if (field === "postal" && !REGEX.postal.test(value))
       msg = "Invalid postal code";
+
+
 
 
     if (
@@ -93,8 +117,12 @@ export default function CreateShipmentForm() {
       msg = "Invalid number";
 
 
+
+
     setErrors(prev => ({ ...prev, [`${section}.${field}`]: msg }));
   };
+
+
 
 
   const updateForm = (section, field, value) => {
@@ -104,6 +132,8 @@ export default function CreateShipmentForm() {
       [section]: { ...prev[section], [field]: value },
     }));
   };
+
+
 
 
   /* ================= STEP VALIDATION ================= */
@@ -136,6 +166,8 @@ const validateDutyMode = () => {
 };
 
 
+
+
 const validateHsCode = () => {
   if (!form.hsCode || form.hsCode === "Auto-detecting...") {
     return "HS Code: Please fetch HS Code using AI";
@@ -144,16 +176,24 @@ const validateHsCode = () => {
 };
 
 
+
+
 const showStep5Errors = () => {
   const messages = [];
+
+
 
 
   const dutyError = validateDutyMode();
   if (dutyError) messages.push("• " + dutyError);
 
 
+
+
   const hsError = validateHsCode();
   if (hsError) messages.push("• " + hsError);
+
+
 
 
   if (messages.length) {
@@ -162,8 +202,16 @@ const showStep5Errors = () => {
   }
 
 
+
+
   return false; // no errors
 };
+
+
+
+
+
+
 
 
 
@@ -187,12 +235,18 @@ const showStep5Errors = () => {
     });
 
 
+
+
   if (messages.length) {
     alert("Please fix the following errors:\n\n" + messages.join("\n"));
     return true;
   }
   return false;
 };
+
+
+
+
 
 
 
@@ -208,10 +262,16 @@ const showStep5Errors = () => {
   }
 
 
+
+
   if (currentStep < totalSteps) {
     setCurrentStep(prev => prev + 1);
   }
 };
+
+
+
+
 
 
 
@@ -221,10 +281,14 @@ const showStep5Errors = () => {
   };
 
 
+
+
   /* ================= HS CODE ================= */
   const handleFetchHsCode = async () => {
   try {
     setLoadingHs(true);
+
+
 
 
     const payload = {
@@ -235,6 +299,8 @@ const showStep5Errors = () => {
     };
 
 
+
+
     const res = await axios.post(
       `${import.meta.env.VITE_API_BASE_URL}/hs-code/fetch`,
       payload,
@@ -242,14 +308,25 @@ const showStep5Errors = () => {
     );
 
 
+
+
     const hsData = res.data;
+    if(hsData.indian_hs_code=="NO HS CODE FOUND"){
+    alert("Shipment of this product is not handled by the agency. Contact the agent for more details.");
+    navigate(`/user`);
+  }
+
+
 
 
     setForm(p => ({
       ...p,
-      hsCode: hsData.indian_hs_code,           // Indian HS Code
+      hsCode: hsData.indian_hs_code.toString().replace(/\D/g, ""),           // Indian HS Code
       destinationHsCode: hsData.destination_hs_code  // Destination HS Code
     }));
+    
+
+
 
 
   } catch (error) {
@@ -261,18 +338,26 @@ const showStep5Errors = () => {
 };
 
 
+
+
   /* ================= SUBMIT ================= */
  const handleSubmit = async (e) => {
   e.preventDefault();
 
 
+
+
   if (currentStep === 5 && showStep5Errors()) return;
+
+
 
 
   if (!validateStep()) {
     showErrors();
     return;
   }
+
+
 
 
   try {
@@ -287,6 +372,8 @@ const showStep5Errors = () => {
     reason: "",
 
 
+
+
     sender_name: form.sender.name,
     sender_email: form.sender.email,
     sender_phone: form.sender.phone,
@@ -295,6 +382,8 @@ const showStep5Errors = () => {
     sender_state: form.sender.state,
     sender_postal: form.sender.postal,
     sender_country: form.sender.country,
+
+
 
 
     receiver_name: form.receiver.name,
@@ -307,9 +396,13 @@ const showStep5Errors = () => {
     receiver_country: form.receiver.country,
 
 
+
+
     shipment_type: form.shipment.type,
     packages: Number(form.shipment.packages),
     weight: Number(form.shipment.weight),
+
+
 
 
     dimensions_length: Number(form.dimensions.length),
@@ -317,8 +410,12 @@ const showStep5Errors = () => {
     dimensions_height: Number(form.dimensions.height),
 
 
+
+
     special_notes: form.shipment.special_notes,
     quantity: Number(form.shipment.quantity),
+
+
 
 
     product_category: form.product.category,
@@ -326,6 +423,8 @@ const showStep5Errors = () => {
     product_description: form.product.description,
     product_composition: form.product.composition,
     intended_use: form.product.intended_use,
+
+
 
 
     hs_code: form.hsCode,                 // Indian HS
@@ -346,10 +445,18 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
+
+
   /* ================= AI RISK ================= */
   const API_AI = `${import.meta.env.VITE_API_BASE_URL}/api/airisk/analyze`;
   const [aiLoading, setAiLoading] = useState(false);
   const [aiRisk, setAiRisk] = useState(null);
+
+
 
 
   const runAiRisk = async () => {
@@ -360,6 +467,8 @@ const showStep5Errors = () => {
       form.hsCode === "Auto-detecting..." ||
       !form.receiver.country
     ) return;
+
+
 
 
     setAiLoading(true);
@@ -382,14 +491,20 @@ const showStep5Errors = () => {
   };
 
 
+
+
   useEffect(() => {
     runAiRisk();
   }, [form.hsCode, form.product.category, form.product.description, form.receiver.country]);
 
 
+
+
   /* ================= UI ================= */
   const inputClass =
     "w-full p-3 border rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-[#7091E6]";
+
+
 
 
   return (
@@ -408,7 +523,15 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
         <form onSubmit={handleSubmit} className="space-y-10">
+
+
+
+
 
 
 
@@ -417,6 +540,10 @@ const showStep5Errors = () => {
           {currentStep === 1 && (
             <section>
               <h2 className="text-xl font-semibold mb-4">Sender Information</h2>
+
+
+
+
 
 
 
@@ -433,12 +560,20 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <input
                   className={`${inputClass} bg-gray-200`}
                   placeholder="Sender Email"
                   value={form.sender.email}
                   readOnly
                 />
+
+
+
+
 
 
 
@@ -454,6 +589,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <input
                   className={inputClass}
                   placeholder="Address Line 1"
@@ -465,12 +604,20 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <input
                   className={inputClass}
                   placeholder="Address Line 2 (Optional)"
                   value={form.sender.address2}
                   onChange={(e) => updateForm("sender", "address2", e.target.value)}
                 />
+
+
+
+
 
 
 
@@ -486,6 +633,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <input
                   className={inputClass}
                   placeholder="State"
@@ -497,6 +648,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <input
                   className={inputClass}
                   placeholder="Postal Code"
@@ -504,6 +659,10 @@ const showStep5Errors = () => {
                   value={form.sender.postal}
                   onChange={(e) => updateForm("sender", "postal", e.target.value)}
                 />
+
+
+
+
 
 
 
@@ -521,9 +680,21 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
+
+
+
+
               </div>
             </section>
           )}
+
+
+
+
 
 
 
@@ -532,6 +703,10 @@ const showStep5Errors = () => {
           {currentStep === 2 && (
             <section>
               <h2 className="text-xl font-semibold mb-4">Receiver Information</h2>
+
+
+
+
 
 
 
@@ -548,6 +723,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <input
                   className={inputClass}
                   placeholder="Receiver Email"
@@ -560,6 +739,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <input
                   className={inputClass}
                   placeholder="Phone"
@@ -567,6 +750,10 @@ const showStep5Errors = () => {
                   value={form.receiver.phone}
                   onChange={(e) => updateForm("receiver", "phone", e.target.value)}
                 />
+
+
+
+
 
 
 
@@ -584,6 +771,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <input
                   className={inputClass}
                   placeholder="Address Line 2 (Optional)"
@@ -592,6 +783,10 @@ const showStep5Errors = () => {
                     updateForm("receiver", "address2", e.target.value)
                   }
                 />
+
+
+
+
 
 
 
@@ -609,6 +804,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <input
                   className={inputClass}
                   placeholder="State"
@@ -622,6 +821,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <input
                   className={inputClass}
                   placeholder="Postal Code"
@@ -631,6 +834,10 @@ const showStep5Errors = () => {
                     updateForm("receiver", "postal", e.target.value)
                   }
                 />
+
+
+
+
 
 
 
@@ -650,6 +857,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
              
               </div>
             </section>
@@ -658,10 +869,18 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
           {/* ===================== STEP 3 — SHIPMENT ===================== */}
           {currentStep === 3 && (
             <section>
               <h2 className="text-xl font-semibold mb-4">Shipment Details</h2>
+
+
+
+
 
 
 
@@ -683,6 +902,12 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
+
+
                 <input
                   className={inputClass}
                   type="number"
@@ -694,6 +919,10 @@ const showStep5Errors = () => {
                     updateForm("shipment", "packages", e.target.value)
                   }
                 />
+
+
+
+
 
 
 
@@ -714,6 +943,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 {/* Dimensions */}
                 <div className="grid grid-cols-4 gap-2">
                   <input
@@ -726,6 +959,10 @@ const showStep5Errors = () => {
                       updateForm("dimensions", "length", e.target.value)
                     }
                   />
+
+
+
+
 
 
 
@@ -744,6 +981,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                   <input
                     className={inputClass}
                     type="number"
@@ -754,6 +995,10 @@ const showStep5Errors = () => {
                       updateForm("dimensions", "height", e.target.value)
                     }
                   />
+
+
+
+
 
 
 
@@ -776,6 +1021,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <input
                   className={inputClass}
                   placeholder="Special Handling Notes"
@@ -784,6 +1033,10 @@ const showStep5Errors = () => {
                     updateForm("shipment", "special_notes", e.target.value)
                   }
                 />
+
+
+
+
 
 
 
@@ -806,6 +1059,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
           {/* ===================== STEP 4 — PRODUCT ===================== */}
           {currentStep === 4 && (
             <section>
@@ -814,7 +1071,15 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+
+
+
 
 
 
@@ -839,10 +1104,10 @@ const showStep5Errors = () => {
                   <option value="Home Decor">
                     Home Decor & Handicrafts
                   </option>
-                  <option value="FashionAccessories">
+                  <option value="Fashion Accessories">
                     Fashion Accessories
                   </option>
-                  <option value="DangerousGoods">
+                  <option value="Dangerous Goods">
                   Dangerous Goods
                   </option>
                   <option value="Footwear">
@@ -850,9 +1115,15 @@ const showStep5Errors = () => {
                   </option>
 
 
+
+
                   <option value="Food">Food</option>
                   <option value="Spices">Spices</option>
                 </select>
+
+
+
+
 
 
 
@@ -871,6 +1142,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <textarea
                   className={`${inputClass} h-20`}
                   placeholder="Product Description"
@@ -884,6 +1159,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
                 <textarea
                   className={`${inputClass} h-20`}
                   placeholder="Composition"
@@ -893,6 +1172,10 @@ const showStep5Errors = () => {
                     updateForm("product", "composition", e.target.value)
                   }
                 />
+
+
+
+
 
 
 
@@ -923,6 +1206,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
     <div className="flex flex-col md:flex-row gap-6">
       <label className="flex items-center gap-2">
         <input
@@ -937,6 +1224,10 @@ const showStep5Errors = () => {
         />
         DDP (Sender Pays Duty)
       </label>
+
+
+
+
 
 
 
@@ -956,6 +1247,8 @@ const showStep5Errors = () => {
 )}
 
 
+
+
         DAP (Receiver Pays Duty)
       </label>
     </div>
@@ -963,9 +1256,17 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
     {/* SECTION 2 — HS Code */}
     <div className="mt-10">
       <h2 className="text-xl font-semibold mb-4">HS Code</h2>
+
+
+
+
 
 
 
@@ -979,6 +1280,12 @@ const showStep5Errors = () => {
         {errors.hsCode && (
   <p className="text-red-600 text-sm mt-2">{errors.hsCode}</p>
 )}
+
+
+
+
+
+
 
 
 
@@ -1005,12 +1312,20 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
     {aiLoading ? (
       <p>AI Evaluating...</p>
     ) : aiRisk ? (
       // ⬇⬇ Place your AI result card here ⬇⬇
       <div className="mt-10 bg-[#EDE8F5] border border-green-700 p-6 rounded-xl">
         <h2 className="text-2xl font-bold text-black mb-3">AI Compliance Assessment</h2>
+
+
+
+
 
 
 
@@ -1029,10 +1344,18 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
         <h3 className="font-semibold mt-4">Required Documents:</h3>
         <ul className="list-disc ml-6">
           {aiRisk.requiredDocuments?.map((d, i) => <li key={i}>{d}</li>)}
         </ul>
+
+
+
+
 
 
 
@@ -1045,6 +1368,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
         <h3 className="font-semibold mt-4">Recommendations:</h3>
         <ul className="list-disc ml-6">
           {aiRisk.recommendations?.map((r, i) => <li key={i}>{r}</li>)}
@@ -1053,8 +1380,16 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
         <p className="mt-4 text-sm text-gray-700">{aiRisk.summary}</p>
       </div>
+
+
+
+
 
 
 
@@ -1068,8 +1403,16 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
           {/* ===================== NAVIGATION BUTTONS ===================== */}
           <div className="flex justify-between items-center pt-6">
+
+
+
+
 
 
 
@@ -1087,6 +1430,10 @@ const showStep5Errors = () => {
 
 
 
+
+
+
+
             {currentStep < totalSteps && (
               <button
                 type="button"
@@ -1097,6 +1444,10 @@ const showStep5Errors = () => {
               </button>
             )}
           </div>
+
+
+
+
 
 
 
@@ -1116,3 +1467,8 @@ const showStep5Errors = () => {
     </div>
   );
 }
+
+
+
+
+

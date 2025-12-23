@@ -28,6 +28,7 @@ export default function RiskAnalysis() {
       });
 
       const data = await res.json();
+      console.log(data);
       setAiRisk(data);
     } finally {
       setAiLoading(false);
@@ -54,11 +55,27 @@ export default function RiskAnalysis() {
           <select className="input" defaultValue=""
             onChange={(e) => setManualInput(p => ({ ...p, product: e.target.value }))}>
             <option value="">Select Product Category</option>
-            <option value="ApparelTextiles">Apparel & Textiles</option>
-            <option value="CosmeticsAyurveda">Cosmetics & Ayurveda</option>
-            <option value="ElectronicsAccessories">Electronics Accessories</option>
-            <option value="HomeDecorHandicrafts">Home Decor & Handicrafts</option>
-            <option value="FashionAccessories">Fashion Accessories</option>
+                  <option value="CLOTHING">Apparel & Textiles</option>
+                  <option value="Cosmetics">
+                    Cosmetics
+                  </option>
+                  <option value="Electronics">
+                    Electronics Accessories
+                  </option>
+                  <option value="Home Decor">
+                    Home Decor & Handicrafts
+                  </option>
+                  <option value="Fashion Accessories">
+                    Fashion Accessories
+                  </option>
+                  <option value="Dangerous Goods">
+                  Dangerous Goods
+                  </option>
+                  <option value="Footwear">
+                  Footwear
+                  </option>
+                  <option value="Food">Food</option>
+                  <option value="Spices">Spices</option>
           </select>
 
           <select className="input" defaultValue=""

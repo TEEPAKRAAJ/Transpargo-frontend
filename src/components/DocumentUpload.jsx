@@ -143,6 +143,11 @@ console.log(shipmentDetails);
   // ------------ Only RequiredDocs considered now ------------
   const docsOnScreen = [...requiredDocs]; 
   const uploadedCount = docsOnScreen.filter(d => uploadStatus[d] === "success").length;
+  const allUploaded =
+  requiredDocs.length > 0 &&
+  uploadedCount === requiredDocs.length &&
+  !uploading;
+
 
 
   return (
@@ -162,6 +167,8 @@ console.log(shipmentDetails);
 
         <UploadProgress uploaded={uploadedCount} total={requiredDocs.length} uploading={uploading} />
 
+
+
         <div className="flex flex-col md:flex-row gap-4 mt-6">
           <button onClick={handleUploadAll} disabled={uploading}
             className={`w-full md:w-1/2 py-3 text-white rounded-lg font-bold ${
@@ -170,10 +177,18 @@ console.log(shipmentDetails);
             {uploading ? "Uploading..." : "Upload All"}
           </button>
 
-          <button onClick={handleFinalSubmit}
-            className="w-full md:w-1/2 py-3 text-white rounded-lg font-bold bg-green-600 hover:bg-green-700">
-            Submit Documents
-          </button>
+          <button
+  onClick={handleFinalSubmit}
+  disabled={!allUploaded}
+  className={`w-full md:w-1/2 py-3 text-white rounded-lg font-bold
+    ${
+      allUploaded
+        ? "bg-green-600 hover:bg-green-700"
+        : "bg-gray-400 cursor-not-allowed"
+    }`}
+>
+  Submit Documents
+</button>
         </div>
 
       </div>

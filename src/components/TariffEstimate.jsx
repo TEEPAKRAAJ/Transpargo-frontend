@@ -120,6 +120,16 @@ export default function TariffEstimate() {
   };
 
   if (currentStep === "result" && tariffResult) {
+    if(tariffResult.dutyRate==0){
+      alert("Product is not handeled");
+      setCurrentStep("no result")
+      setFormData({
+                country: "",
+                hsCode: "",
+                value: "",
+                weight: ""
+              });
+      }
     return (
       <div className="min-h-screen p-6 bg-gradient-to-br from-[#EDE8F5] via-[#ADBBDA] to-[#7091E6]">
         <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-lg p-6">

@@ -228,7 +228,7 @@ function FormInput({ label, keyName, formData, updateField }) {
     <div>
       <label className="font-semibold">{label}</label>
       <input
-        type="number"
+        type="number" min="0"
         className="w-full mt-2 p-3 border rounded-lg"
         value={formData[keyName] || ""}
         onChange={(e) => updateField(keyName, e.target.value)}

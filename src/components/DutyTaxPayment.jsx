@@ -102,12 +102,28 @@ export default function DutyTaxPayment() {
     fetchShipment();
   }, [shipmentId]);
 
+  const notifyUser = async () => {
+    const payload = {
+      to: shipment.senderEmail,
+      shipmentId: shipment.id,
+      message: "Your shipment process has been aborted as payment was not made within 90 days."
+    };
+  
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/email/notify`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  
+  };
+
   if (cancel && !cancelHandledRef.current) {
     cancelHandledRef.current = true; // 🔒 lock immediately
   
     // defer side effects OUT of render stack
     Promise.resolve().then(async () => {
       alert("Shipment has been cancelled as payment was not made within 90 days.");
+      notifyUser();
   
       try {
         const numeric = parseInt(shipmentId);

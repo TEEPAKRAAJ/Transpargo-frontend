@@ -96,6 +96,7 @@ export default function UserDashboard() {
             <option value="Delivered">Delivered</option>
             <option value="Return Request">Return Request</option>
             <option value="Destruction Request">Destruction Request</option>
+            <option value="Payment Initiated">Payment Initiated</option>
             <option value="Charges Paid">Charges Paid</option>
             <option value="Returned">Returned</option>
             <option value="Destroyed">Destroyed</option>
