@@ -25,6 +25,7 @@ export default function ReceiverPage() {
     try {
       // Convert SHP001 → 1
       const numericId = shipmentId.replace("SHP", "");
+      
 
       // Backend request: /user/verify-receiver/{email}/{shipmentId}
       const res = await verifyReceiver(email, numericId);

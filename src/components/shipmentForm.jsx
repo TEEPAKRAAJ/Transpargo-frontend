@@ -478,10 +478,8 @@ const showStep5Errors = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           productCategory: form.product.category,
-          productDescription: form.product.description,
           destinationCountry: form.receiver.country,
           hsCode: form.hsCode,
-          shipmentValue: form.product.value || 10000
         })
       });
       setAiRisk(await res.json());

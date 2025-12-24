@@ -20,10 +20,8 @@ export default function RiskAnalysis() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           productCategory: manualInput.product,
-          productDescription: manualInput.product,
           destinationCountry: manualInput.destination,
           hsCode: manualInput.hsCode,
-          shipmentValue: 10000
         })
       });
 
