@@ -16,6 +16,16 @@ export default function Sidebar({ links = [], title = "Transpargo" }) {
     navigate("/login", { replace: true });
   };
 
+  const profileRouteMap = {
+    admin: "/admin/profile",
+    user: "user/profile",
+    Shipping_agency: "/Shipping_agency/profile",
+  };
+  
+  const profilePath = profileRouteMap[role];
+  
+
+
   return (
     <aside className="w-64 shrink-0 bg-gradient-to-t 
       from-cloudyBlue 
@@ -29,7 +39,7 @@ export default function Sidebar({ links = [], title = "Transpargo" }) {
           <h1 className="text-2xl font-semibold text-white">Transpargo</h1>
         </div>
 
-        <div className="mb-6 rounded-2xl border border-white/10 bg-white/5 p-4">
+        <div onClick={() => profilePath && navigate(profilePath)} className="mb-6 rounded-2xl border border-white/10 bg-white/5 p-4">
           <p className="text-sm text-slate-300">Signed in as</p>
           <p className="text-lg font-semibold text-white truncate">
             {name || "Guest User"}

@@ -28,10 +28,16 @@ import DestructionPage from "./components/DestructionPage";
 import ChargesPayment from "./components/ChargesPayment";
 import TermsAndConditions from "./components/TermsAndConditions";
 import DangerousGoodsVisualizer from "./pages/DangerousGoodsVisualizer";
+import Landing from "./pages/Landing"
+import FeedbackDisplay from "./components/FeedbackDisplay";
+import FeedbackComplaint from "./components/FeedbackComplaint";
+import Profile from "./components/Profile"
+
 
 export default function App() {
   const adminNav = [
-    { label: "Dashboard", to: "/admin" }
+    { label: "Dashboard", to: "/admin" },
+    { label: "Profile", to: "/admin/profile" },
   ];
 
   const userNav = [
@@ -42,18 +48,22 @@ export default function App() {
     { label: "Knowledge Base", to: "/user/knowledgeBase" },
     { label: "Receive Shipment", to: "/user/receive" },
     { label: "Dangerous Goods Packing", to: "/user/dangerous" },
+    { label: "Feedback & Complaint", to: "/user/feedback" },
+    { label: "Profile", to: "/user/profile" },
   ];
 
 
   const shipNav = [
     { label: "Dashboard", to: "/Shipping_agency" },
+    { label: "Feedbacks", to: "/Shipping_agency/feedbacks" },
     { label: "Analytics", to: "/Shipping_agency/analytics" },
+    { label: "Profile", to: "/Shipping_agency/profile" },
   ];
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/resetpassword" element={<Resetpassword/>}/>
@@ -68,6 +78,7 @@ export default function App() {
           }
         >
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/profile" element={<Profile />} />
         </Route>
 
         <Route
@@ -90,6 +101,8 @@ export default function App() {
           <Route path="user/upload/:type/:id" element={<DocumentUpload />} />
           <Route path="user/receive" element={<ReceiverPage />} />
           <Route path="user/dangerous" element={<DangerousGoodsVisualizer />} />
+          <Route path="user/feedback" element={<FeedbackComplaint />} />
+          <Route path="user/profile" element={<Profile />} />
         </Route>
 
 
@@ -108,6 +121,8 @@ export default function App() {
           <Route path="/Shipping_agency/shipment/:shipmentId/done" element={<DonePage />} />
           <Route path="/Shipping_agency/shipment/:shipmentId/returns" element={<ReturnsPage />} />
           <Route path="/Shipping_agency/shipment/:shipmentId/destruction" element={<DestructionPage />} />
+          <Route path="/Shipping_agency/feedbacks" element={<FeedbackDisplay />} />
+          <Route path="/Shipping_agency/profile" element={<Profile />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/login" replace />} />
