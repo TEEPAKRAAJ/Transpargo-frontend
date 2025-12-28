@@ -16,7 +16,7 @@ export default function FeedbackDisplay() {
   const fetchFeedbacks = async () => {
     try {
       setLoading(true);
-        var response=await fetch('http://localhost:5000/feedback/veiwfeedback');
+        var response=await fetch(`${import.meta.env.VITE_API_BASE_URL}/feedback/veiwfeedback`);
         const data = await response.json();
         console.log(data);
         if (response.status !== 200) {
