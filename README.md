@@ -17,7 +17,7 @@ The Transpargo frontend provides:
 
 ## Role-Based Access & Security
 
-The application is designed with role-based access in mind, ensuring that different user types—such as customers, customs officers, and administrators—see workflows and actions relevant to their responsibilities.
+The application is designed with role-based access in mind, ensuring that different user types—such as customers, shipping agency, and administrators—see workflows and actions relevant to their responsibilities.
 
 Authentication is securely handled via backend-issued tokens, enabling:
 
