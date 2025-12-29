@@ -1,16 +1,47 @@
-# React + Vite
+# Project Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Transpargo** is a comprehensive digital platform designed to simplify international logistics, customs compliance, and shipment management. The frontend application serves as the primary user interface for exporters, importers, and administrators to interact with the Transpargo ecosystem in a clear, structured, and reliable manner.
 
-Currently, two official plugins are available:
+The platform addresses common challenges in global trade such as regulatory complexity, document uncertainty, tariff estimation, shipment visibility, and communication gaps between stakeholders. Transpargo centralizes these processes into a single, intuitive system that improves transparency, reduces delays, and enhances decision-making throughout the shipment lifecycle.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Capabilities
 
-## React Compiler
+The Transpargo frontend provides:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- A unified interface for managing shipments from initiation to delivery  
+- Clear visibility into shipment status with structured sender and receiver logs  
+- Intelligent guidance for customs documentation and regulatory requirements  
+- Risk awareness and compliance support to reduce customs holds and delays  
+- Tariff and duty estimation to support cost planning before shipment  
+- AI-assisted support for user queries and operational guidance  
 
-## Expanding the ESLint configuration
+## Role-Based Access & Security
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The application is designed with role-based access in mind, ensuring that different user types—such as customers, shipping agency, and administrators—see workflows and actions relevant to their responsibilities.
+
+Authentication is securely handled via backend-issued tokens, enabling:
+
+- Session persistence  
+- Controlled access to protected routes  
+- Secure role-based navigation  
+
+## System Integration
+
+Transpargo Frontend integrates seamlessly with backend services through well-defined APIs, supporting:
+
+- Real-time shipment updates  
+- Document upload and verification workflows  
+- Notifications and status communication  
+- Payment and billing-related interactions  
+
+The overall architecture is modular and scalable, allowing future enhancements without disrupting existing functionality.
+
+## Purpose & Vision
+
+The project focuses on transforming complex logistics and compliance processes into a streamlined digital experience. By centralizing shipment operations and compliance intelligence, Transpargo helps users ship with confidence, clarity, and operational efficiency.
+
+## Live Application
+
+The frontend is deployed as a static website using **AWS S3**:
+
+**http://transpargo-frontend.s3-website.ap-south-1.amazonaws.com**
