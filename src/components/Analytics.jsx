@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { getAnalyticsSummary } from "../api/analyticApi";
 import {
+  FiPackage,
+  FiClock,
+  FiCheckCircle,
+  FiTrendingUp,
+  FiAlertTriangle
+} from "react-icons/fi";
+import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   PieChart, Pie, Cell, ResponsiveContainer
 } from "recharts";
@@ -71,7 +78,7 @@ export default function ReportingAnalytics() {
               <span className="text-gray-600 text-xs sm:text-sm font-medium leading-tight">
                 Total Shipments
               </span>
-              <span className="text-lg sm:text-xl flex-shrink-0">📦</span>
+              <FiPackage className="text-[#3D52A0] text-xl sm:text-2xl" />
             </div>
             <p className="text-2xl sm:text-3xl font-bold text-[#3D52A0] break-words">
               {statsData.totalShipments}
@@ -84,7 +91,7 @@ export default function ReportingAnalytics() {
               <span className="text-gray-600 text-xs sm:text-sm font-medium leading-tight">
                 In-Process Shipments
               </span>
-              <span className="text-lg sm:text-xl flex-shrink-0">⌛</span>
+              <FiClock className="text-orange-500 text-xl sm:text-2xl" />
             </div>
             <p className="text-2xl sm:text-3xl font-bold text-orange-500 break-words">
               {statsData.inProcess}
@@ -97,7 +104,7 @@ export default function ReportingAnalytics() {
               <span className="text-gray-600 text-xs sm:text-sm font-medium leading-tight">
                 Clearance Success Rate
               </span>
-              <span className="text-lg sm:text-xl flex-shrink-0">✅</span>
+              <FiCheckCircle className="text-green-600 text-xl sm:text-2xl" />
             </div>
             <p className="text-2xl sm:text-3xl font-bold text-green-600 break-words">
               {statsData.clearanceRate}
@@ -110,7 +117,7 @@ export default function ReportingAnalytics() {
               <span className="text-gray-600 text-xs sm:text-sm font-medium leading-tight">
                 Average Shipping Cost
               </span>
-              <span className="text-lg sm:text-xl flex-shrink-0">₹</span>
+              <FiTrendingUp className="text-[#7091E6] text-xl sm:text-2xl" />
             </div>
             <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#7091E6] break-words overflow-hidden">
               {statsData.avgDutyPaid}
@@ -123,7 +130,7 @@ export default function ReportingAnalytics() {
               <span className="text-gray-600 text-xs sm:text-sm font-medium leading-tight">
                 Abort Rate
               </span>
-              <span className="text-lg sm:text-xl flex-shrink-0">%</span>
+              <FiAlertTriangle className="text-[#e25788ff] text-xl sm:text-2xl" />
             </div>
             <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#7091E6] break-words overflow-hidden">
               {statsData.abortrate}

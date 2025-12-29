@@ -32,6 +32,7 @@ import Landing from "./pages/Landing"
 import FeedbackDisplay from "./components/FeedbackDisplay";
 import FeedbackComplaint from "./components/FeedbackComplaint";
 import Profile from "./components/Profile"
+import ContactUs from "./components/ContactUs"
 
 
 export default function App() {
@@ -69,6 +70,7 @@ export default function App() {
         <Route path="/resetpassword" element={<Resetpassword/>}/>
         <Route path="/forgotpassword" element={<ForgotPassword/>}/>
         <Route path="/termsandconditions" element={<TermsAndConditions/>}/>
+        <Route path="/contact" element={<ContactUs/>}/>
 
         <Route
           element={
@@ -125,7 +127,7 @@ export default function App() {
           <Route path="/Shipping_agency/profile" element={<Profile />} />
         </Route>
 
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

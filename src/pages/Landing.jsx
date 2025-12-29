@@ -13,6 +13,18 @@ import botImg from "../assets/features/ai-chatbot.png";
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 const featureData = [
   {
     title: "Dangerous Goods Packaging Visualization",
@@ -47,9 +59,21 @@ const featureData = [
 ];
 
 
+
+
+
+
+
+
 export default function Landing() {
   const [scrolled, setScrolled] = useState(false);
   const timelineRef = useRef(null);
+
+
+
+
+
+
 
 
   useEffect(() => {
@@ -59,17 +83,35 @@ export default function Landing() {
   }, []);
 
 
+
+
+
+
+
+
   return (
     <div className="w-full min-h-screen bg-[#EDE8F5] overflow-x-hidden">
 
 
+
+
+
+
+
+
       {/* ================= NAVBAR ================= */}
       <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 w-full  z-50 transition-all duration-300 ${
           scrolled ? "backdrop-blur bg-white/70 shadow-md" : "bg-transparent"
         }`}
       >
         <div className="w-full flex items-center justify-between px-10 py-4">
+
+
+
+
+
+
 
 
           {/* LOGO (LEFT) */}
@@ -77,14 +119,23 @@ export default function Landing() {
             <img
               src={logo}
               alt="Transpargo Logo"
-              className="h-9 w-auto object-contain"
+              className="h-15 w-auto object-contain"
             />
           </div>
 
 
+
+
+
+
+
+
           {/* ACTIONS (RIGHT) */}
           <div className="flex items-center gap-8 font-semibold text-[#2E3A6F]">
-            <a href="/login" className="hover:text-[#7091E6] transition">
+          <a href="/contact" className="hover:text-[#7091E6] transition text-xl">
+              Contact Us
+            </a>
+            <a href="/login" className="hover:text-[#7091E6] transition text-xl">
               Login
             </a>
             <a
@@ -97,7 +148,7 @@ export default function Landing() {
                 hover:bg-[#2E3A6F]
                 text-white
                 shadow-md
-                transition
+                transition text-xl
               "
             >
               Sign Up
@@ -107,6 +158,12 @@ export default function Landing() {
       </nav>
 
 
+
+
+
+
+
+
       {/* ================= HERO ================= */}
       <section className="relative min-h-screen w-full overflow-hidden">
         <img
@@ -114,6 +171,12 @@ export default function Landing() {
           alt="Air cargo aircraft"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
+
+
+
+
+
+
 
 
         {/* Hero fade */}
@@ -133,6 +196,12 @@ export default function Landing() {
         />
 
 
+
+
+
+
+
+
         <div className="relative z-10 px-12 pt-40 max-w-[760px]">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -149,12 +218,24 @@ export default function Landing() {
           </motion.h1>
 
 
+
+
+
+
+
+
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: 520 }}
             transition={{ delay: 0.8, duration: 1 }}
             className="h-[7px] my-6 rounded-full bg-gradient-to-r from-[#3D52A0] via-[#7091E6] to-[#ADBBD4]"
           />
+
+
+
+
+
+
 
 
           <motion.p
@@ -169,6 +250,12 @@ export default function Landing() {
         </div>
 
 
+
+
+
+
+
+
         <motion.div
           className="absolute left-12 bottom-[6%] z-10 font-semibold tracking-widest text-[#2E3A6F] text-3xl"
           animate={{ y: [0, 12, 0] }}
@@ -177,6 +264,12 @@ export default function Landing() {
           Scroll to explore ↓
         </motion.div>
       </section>
+
+
+
+
+
+
 
 
       {/* ================= FEATURES ================= */}
@@ -193,7 +286,19 @@ export default function Landing() {
         />
 
 
+
+
+
+
+
+
         <div className="absolute left-1/2 top-0 h-full w-[3px] bg-[#8697C4]/60 -translate-x-1/2 z-20" />
+
+
+
+
+
+
 
 
         <div className="relative z-30 max-w-6xl mx-auto space-y-36 px-6">
@@ -211,40 +316,50 @@ export default function Landing() {
                 <div className="absolute left-1/2 -translate-x-1/2 top-1/2 w-6 h-6 bg-[#3D52A0] rounded-full ring-4 ring-white z-30" />
 
 
-                              <div
-                className={`
-                  w-[560px]
-                  rounded-[32px]
-                  bg-white/95
-                  shadow-2xl
-                  border border-[#ADBBD4]/60
-                  p-10
-                  flex items-center gap-8
-                  ${isLeft ? "mr-auto flex-row" : "ml-auto flex-row-reverse"}
-                `}
-              >
-                {/* IMAGE */}
-                <img
-                  src={f.img}
-                  alt={f.title}
-                  className="
-                    w-28 h-28
-                    object-contain
-                    flex-shrink-0
-                  "
-                />
 
 
-                {/* TEXT */}
-                <div>
-                  <h3 className="text-2xl font-extrabold text-[#3D52A0] mb-4">
-                    {f.title}
-                  </h3>
-                  <p className="text-lg text-[#3D52A0]/85 font-medium leading-relaxed">
-                    {f.desc}
-                  </p>
+
+
+
+
+                <div
+                  className={`
+                    w-[clamp(280px,45vw,560px)]
+                    rounded-[32px]
+                    bg-white/95
+                    shadow-2xl
+                    border border-[#ADBBD4]/60
+                    p-6 sm:p-8 md:p-10
+                    flex items-center gap-5 sm:gap-6 md:gap-8
+                    ${isLeft ? "mr-auto flex-row" : "ml-auto flex-row-reverse"}
+                  `}
+                >
+                  {/* IMAGE */}
+                  <img
+                    src={f.img}
+                    alt={f.title}
+                    className="
+                      w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28
+                      object-contain
+                      flex-shrink-0
+                    "
+                  />
+
+
+                  {/* TEXT */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-extrabold text-[#3D52A0] mb-2 sm:mb-3 md:mb-4">
+                      {f.title}
+                    </h3>
+                    <p className="text-sm sm:text-base md:text-lg text-[#3D52A0]/85 font-medium leading-relaxed">
+                      {f.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
+
+
+
+
 
 
               </motion.div>
@@ -254,8 +369,14 @@ export default function Landing() {
       </section>
 
 
+
+
+
+
+
+
       {/* ================= FOOTER ================= */}
-      <footer className="relative py-16 text-center">
+      <footer className="relative py-5 text-center">
         {/* White haze instead of line */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -266,6 +387,12 @@ export default function Landing() {
         />
 
 
+
+
+
+
+
+
         <div className="relative z-10 text-[#2E3A6F]/70 font-medium">
           © 2025 Transpargo. All rights reserved.
         </div>
@@ -273,5 +400,4 @@ export default function Landing() {
     </div>
   );
 }
-
 
