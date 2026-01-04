@@ -224,7 +224,10 @@ export default function DangerousGoodsVisualizer() {
 
 
   return (
-    <div className="dg-page">
+    <div className="dg-page" style={{
+      background:
+        "linear-gradient(135deg, #FFFFFF, #EDE8F5, #ADBBD4, #8697C4, #7091E6)",
+    }}>
       <div className="dg-page-inner">
         <header className="dg-header">
           <h1>Dangerous Goods Visualizer</h1>
